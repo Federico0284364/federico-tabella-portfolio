@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { usePathname } from "next/navigation";
 import "./globals.css";
 
 import Header from "@/components/Header";
@@ -24,6 +25,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+
+  // se siamo in /studio, non applicare header/footer
+  if (pathname?.startsWith('/studio')) {
+    return <>{children}</>
+  }
+
   return (
     <html lang="en">
       <body
